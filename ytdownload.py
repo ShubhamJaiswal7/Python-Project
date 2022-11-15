@@ -1,10 +1,12 @@
 #Import Files
 from pytube import YouTube
 from pytube import Playlist
+import os
+import sys
 
 #Code Start from Here
-print("Download Playlist(2) or Video(1) : ")
-observer = int(input("Click 1 for Video or 2 for Playlist"))
+print("Download Playlist(2) or Video(1) Audio(3): ")
+observer = int(input("Click 1 for Video , 2 for Playlist , 3 for Audio: "))
 
 # Progess Function
 def progress_func(vid, chunk, bytes_remaining):
@@ -24,6 +26,7 @@ def progress_func(vid, chunk, bytes_remaining):
 
 
 
+
 if(observer== 1):
     link = input("Enter URL Here: ")
   
@@ -38,6 +41,7 @@ if(observer== 1):
     print("View: " , yt.views)
 
     yd = yt.streams.get_highest_resolution()
+    
 
     yd.download('\Shubham\Coding\Python Code\project\download')
     print("Video Downloaded")
@@ -60,6 +64,15 @@ elif(observer==2):
 
     
 
+elif(observer==3):
+    a_link = input("Enter AudioURL Here: ")
+    audio_file = YouTube(a_link).streams.filter(only_audio=True).get_by_itag(251).download('\Shubham\Coding\Python Code\project\download')
+    base, ext = os.path.splitext(audio_file)
+    new_file = base + '.mp3'
+    os.rename(audio_file, new_file)
+
+  
+    print("Audio Downloaded")
 
 else:
      print("Press Correct Key")
